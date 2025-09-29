@@ -3,20 +3,23 @@ class Solution {
         int ans = 1; 
         int count  = 0;
         for(int i = 0 ; i < arr.length ; i++){
+            if(arr[i] > mid)return false;
             if(count + arr[i] > mid){
                 ans++; 
-                count = arr[i]; 
+                count =  arr[i]; 
+                   if(ans > k) return false;
+               
             }
             else{
                 count += arr[i];
             }
-            if(ans > k) return false;
+         
         }
         return true;
     }
 
     public int minTime(int[] arr, int k) {
-       int st = Arrays.stream(arr).max().getAsInt(); 
+       int st = 0; 
        int end = Arrays.stream(arr).sum(); 
        int ans = 0;
 
