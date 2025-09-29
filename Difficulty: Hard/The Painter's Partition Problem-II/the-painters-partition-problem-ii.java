@@ -20,7 +20,7 @@ class Solution {
 
     public int minTime(int[] arr, int k) {
        int st = 0; 
-       int end = Arrays.stream(arr).sum(); 
+       int end = Integer.MAX_VALUE; 
        int ans = 0;
 
        while(st <= end){
