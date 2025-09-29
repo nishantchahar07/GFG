@@ -14,7 +14,7 @@ class Solution {
         return count >= k;
     }
     public int aggressiveCows(int[] stalls, int k) {
-       int st = 1;
+       int st = 0;
        int end = Arrays.stream(stalls).max().getAsInt();
        int ans = 0;
        Arrays.sort(stalls);
