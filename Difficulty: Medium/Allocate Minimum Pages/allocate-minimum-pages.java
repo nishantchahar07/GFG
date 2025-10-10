@@ -1,43 +1,40 @@
 class Solution {
-    public static boolean isvalid(int[] arr , int mid , int k){
-        int count =1;
-        int page = 0;
+        public boolean isvalid(int[] arr , int mid , int k){
+        int sum = 0;
+        int count = 1;
         int i = 0;
-        while(i<arr.length){
-            if(page+arr[i] <= mid){
-                page+=arr[i];
-                i++;
+        while( i < arr.length){
+            sum+=arr[i];
+            if(sum > mid){
+            count++;
+             sum =  arr[i];
             }
-            else{
-                page = 0;
-                count++;
-            }
-            if(count > k){
-                return false;
-            }
+            if(count > k)return false;
+            i++;
+           
         }
         return true;
+        
     }
     public int findPages(int[] arr, int k) {
-        int lo = 0;
-        int hi = 0;
-        for(int i : arr){
-            hi+=i;
+       int st = Arrays.stream(arr).max().getAsInt() ;
+        int end = 0;
+        for(int i = 0 ; i < arr.length ; i++){
+            end+=arr[i];
+            
         }
-        if(arr.length < k){
-            return -1;
-        }
-        int ans  = -1;
-        while(lo <=  hi){
-            int mid = lo + (hi-lo)/2;
+        if(arr.length  < k)return -1;
+        int ans = -1;
+        
+        while(st <= end){
+            int mid = st+(end -st)/2;
             if(isvalid(arr , mid , k)){
                 ans = mid;
-                hi  = mid -1;
+                end =  mid-1;
             }
-            else{
-                lo =  mid +1;
-            }
+            else st = mid+1;
         }
         return ans;
+        
     }
 }
