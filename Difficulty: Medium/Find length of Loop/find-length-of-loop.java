@@ -12,26 +12,25 @@ class Node {
 
 class Solution {
     public int lengthOfLoop(Node head) {
-      Node slow = head;
-      Node fast = head;
+       Node fast = head;
+       Node slow = head;
+       
+       int count = 1;
+       while(fast != null && fast.next!= null){
+           fast = fast.next.next;
+           slow = slow.next;
+           if(slow == fast){
+               slow = slow.next;
+               while(slow != fast){
+                   slow = slow.next;
+                   count++;
+               }
+                          return count;
+        
 
-    while (fast != null && fast.next != null) {
-        slow = slow.next;
-        fast = fast.next.next;
-
-        // Loop detected
-        if (slow == fast) {
-            // ab count length
-            int count = 1;
-            Node temp = slow.next;
-            while (temp != slow) {
-                count++;
-                temp = temp.next;
-            }
-            return count;
-        }
+               
+           }
+           }
+           return 0;
     }
-
-    return 0; 
-}
 }
