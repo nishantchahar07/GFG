@@ -1,34 +1,31 @@
 class Solution {
     public ArrayList<Integer> bfs(ArrayList<ArrayList<Integer>> adj) {
-      Queue<Integer> q  =  new LinkedList<>();
-      int size =  adj.size();
-      boolean []visited =  new boolean[size];
-      ArrayList<Integer> ans  =  new ArrayList<>();
+      //remove --> ignore --> visited --> selfwork --> nbrs
+      ArrayList<Integer>  result =  new ArrayList<>();
+      HashSet<Integer> visited =  new HashSet<>();
+      Queue<Integer> q = new LinkedList<>();
       
-      q.add(0);
-      visited[0] =  true;
-       while(!q.isEmpty()){
-           int val =  q.poll();
-           visited[val] = true;
-           
-           
-           ans.add(val);
-           
-           //unvisited nbrs 
-           
-           for(int x : adj.get(val) ){
-               if(!visited[x]){
-                   visited[x] = true;
-                   q.add(x);
-               }
-               
-               
-           }
-       }
-       return ans;
+     for(int i = 0 ; i < adj.size() ; i++){
+         if(visited.contains(i))continue;
+        q.add(i);
         
+        while(!q.isEmpty()){
+            int val =  q.poll();
+            if(visited.contains(val))continue;
+            visited.add(val);
+            result.add(val);
+            
+            for(int nbrs : adj.get(val)){
+                if(!visited.contains(nbrs)){
+                    q.add(nbrs);
+                }
+            }
+            
+        }
         
-        
+     }
+     return result;
+      
         
     }
 }
