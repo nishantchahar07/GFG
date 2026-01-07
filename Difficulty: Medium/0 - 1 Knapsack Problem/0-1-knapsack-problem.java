@@ -1,26 +1,24 @@
 class Solution {
-    public int get(int w , int[] val , int[] wt , int n , int[][]dp){
+    public int get(int W, int val[], int wt[] , int n , int[][]dp){
+        if(n == 0 || W == 0)return 0;
+        if(dp[W][n] != -1)return dp[W][n];
         
-        if(n == 0 || w == 0)return 0;
-        if(dp[n-1][w] != -1)return dp[n-1][w] ;
-        int weight =  wt[n-1];
-        if(w >= weight){
-       return dp[n-1][w] =  Math.max( val[n-1] + get(w-weight ,  val , wt , n-1 , dp), get(w  ,  val , wt , n-1 , dp)); 
-    }
-    else{
-       return  get(w  ,  val , wt , n-1 , dp);
-    }
-    }
-    
-    
-    
-    public int knapsack(int W, int val[], int wt[] ) {
-        int n = wt.length;
-        int[][]dp =  new int[n+1][W+1];
-        for(int[] i : dp){
-            Arrays.fill(i , -1);
+        int value =  wt[n-1];
+        if(value <= W){
+            int add = val[n-1] + get(W-value ,  val ,  wt , n-1 , dp);
+            int not =  get(W ,  val ,  wt , n-1 , dp); 
+            return dp[W][n] = Math.max(add , not);
         }
-    return  get(W , val , wt , n , dp);
-        
+        else{
+            return dp[W][n] = get(W ,  val,  wt , n-1 , dp);
+        }
+    }
+    public int knapsack(int W, int val[], int wt[]) {
+      int[][] dp =  new int[W+1][wt.length+1];
+      for(int i = 0 ; i < dp.length ; i++){
+       Arrays.fill(dp[i] , -1);
+      }
+        int n =  wt.length;
+      return  get(W ,  val ,  wt , n , dp); 
     }
 }
