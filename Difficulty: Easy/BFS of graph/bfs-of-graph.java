@@ -4,10 +4,8 @@ class Solution {
       ArrayList<Integer>  result =  new ArrayList<>();
       HashSet<Integer> visited =  new HashSet<>();
       Queue<Integer> q = new LinkedList<>();
-      
-     for(int i = 0 ; i < adj.size() ; i++){
-         if(visited.contains(i))continue;
-        q.add(i);
+     
+        q.add(0);
         
         while(!q.isEmpty()){
             int val =  q.poll();
@@ -23,7 +21,7 @@ class Solution {
             
         }
         
-     }
+     
      return result;
       
         
