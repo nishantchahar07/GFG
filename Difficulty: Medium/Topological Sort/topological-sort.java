@@ -1,42 +1,45 @@
 class Solution {
-    public void get( ArrayList<ArrayList<Integer>> ll ,Stack<Integer> st ,  boolean[] visited , int node ){
-        visited[node] = true;
-       
+    public ArrayList<Integer> topoSort(int V, int[][] edges) {
+        // KAHN ALGO
+        Queue<Integer> q = new LinkedList<>();
+        ArrayList<ArrayList<Integer>> ll = new ArrayList<>();
         
-        for(int nbrs : ll.get(node)){
-            if(!visited[nbrs]){
-                get(ll, st , visited , nbrs);
+        int[] indegree =  new int[V];
+        for(int i = 0 ; i < V ; i++){
+            ll.add(new ArrayList<>());
+        }
+        for(int i = 0  ; i < edges.length ; i++){
+            int a = edges[i][0];
+            int b = edges[i][1];
+            
+            ll.get(a).add(b);
+          indegree[b]++;
+        }
+        // for(int i = 0 ; i<ll.size() ; i++){
+        //     // ek indegree array bna 
+        //     indegree[i] =  ll.get(i).size();
+        // }
+        
+        for(int i = 0 ; i < V ; i++){
+            if(indegree[i] == 0){
+                q.add(i);
             }
         }
-        st.push(node);
+        ArrayList<Integer> list = new ArrayList<Integer>();
+        
+        while(!q.isEmpty()){
+            int node = q.poll();
+            list.add(node);
+
+            for (int nbr : ll.get(node)) {
+                indegree[nbr]--;
+                if (indegree[nbr] == 0) {
+                    q.add(nbr);
+                }
+            }
         }
         
-    
-    public ArrayList<Integer> topoSort(int V, int[][] edges) {
-       // directed acyclic graph 
-       ArrayList<ArrayList<Integer>> ll  = new ArrayList<>();
-      Stack<Integer> st = new Stack<>();
-       boolean[] visited  =  new boolean[V];
-       for(int i = 0 ; i < V ; i++){
-           ll.add(new ArrayList<>());
-       }
-       for(int i = 0 ; i < edges.length ; i++){
-           int a   =  edges[i][0];
-           int b  =  edges[i][1];
-           
-           ll.get(a).add(b);
-           
-       }
-       
-       for(int i = 0 ; i < ll.size() ; i++){
-           if(!visited[i]){
-               get(ll, st , visited , i);
-           }
-       }
-        ArrayList<Integer> ans =  new ArrayList<Integer>();
-       while(!st.isEmpty()){
-          ans.add(st.pop()); 
-       }
-       return ans;
+        return list;
+        
     }
 }
