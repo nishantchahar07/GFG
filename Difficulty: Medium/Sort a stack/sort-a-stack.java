@@ -1,21 +1,23 @@
 class Solution {
-    public static void insert(Stack<Integer> st , int val){
-        if(st.size() == 0 || st.peek() <= val){
+    public void insert(Stack<Integer> st , int val){
+        if(st.isEmpty() || st.peek() <= val){
             st.push(val);
             return;
         }
-        int maal =  st.pop();
+        
+        int temp = st.pop();
         insert(st , val);
-        st.push(maal);
+        st.push(temp);
+    }
+    public void sort(Stack<Integer> st){
+        if(st.isEmpty())return;
+        int val =  st.pop();
+        sort(st);
+        insert(st , val);
+        
     }
     public void sortStack(Stack<Integer> st) {
-        
-        if(st.size() == 1){
-            return;
-        }
-        int val =  st.pop();
-        sortStack(st);
-        insert(st , val);
+       sort(st);
         
     }
 }
